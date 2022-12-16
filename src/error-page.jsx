@@ -1,15 +1,16 @@
+import { Heading, VStack, Text } from "@chakra-ui/react";
 import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage(){
     const error = useRouteError()
     console.log(error)
     return (
-        <div id="error-page">
-        <h1>Oops!</h1>
-        <p>Sorry, an unexpected error has occurred.</p>
-        <p>
+      <VStack >
+        <Heading>Oops!</Heading>
+        <Text>Sorry, an unexpected error has occurred.</Text>
+        <Text>
           <i>{error.statusText || error.message}</i>
-        </p>
-      </div>
+        </Text>
+      </VStack>
     )
 }

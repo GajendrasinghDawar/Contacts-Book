@@ -1,0 +1,53 @@
+    {/* <NavLink to={`contacts/${contact.id}`}
+                                    className={
+                                        ({ isActive, isPending }) => {
+                                            return isActive ? "active" : isPending ? 'pending' : ''
+                                        }
+                                    }
+                                >
+                                    {contact.first_name || contact.first_name ? (
+                                        <>
+                                            {contact.first_name} {contact.last_name}
+                                        </>
+                                    ) : (
+                                        <i>No Name</i>
+                                    )}{" "}
+                                    {contact.favorite && <span>★</span>}
+                                </NavLink> */}
+
+
+
+     <Form id="search-form" role="search">
+                    <input
+                        id="q"
+                        className={searching ? "loading" : ""}
+                        aria-label="Search contacts"
+                        placeholder="Search"
+                        type="search"
+                        name="search"
+                        defaultValue={search}
+                        onChange={(event) => {
+                            const isFirstSearch = search == null;
+                            submit(event.currentTarget.form, {
+                                replace: !isFirstSearch,
+                            });
+                        }}
+                    />
+                    <div
+                        id="search-spinner"
+                        aria-hidden
+                        hidden={!searching}
+                    />
+                    <div
+                        className="sr-only"
+                        aria-live="polite"
+                    ></div>
+                </Form>
+
+
+                (event) => {
+                    const isFirstSearch = search == null;
+                    submit(event.currentTarget.form, {
+                        replace: !isFirstSearch,
+                    });
+                }

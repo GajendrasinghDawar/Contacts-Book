@@ -1,5 +1,9 @@
 import { Form, useLoaderData, useFetcher, } from "react-router-dom";
 import { getContact, updateFavorite } from "../contacts";
+import { Card, Image, Stack, CardBody, Heading, Text, Button, CardFooter, Link, HStack, useDisclosure } from "@chakra-ui/react";
+import { useRef } from "react";
+
+import DeleteAlert from "./deleteAlert";
 
 export async function action({ request, params }) {
   let formData = await request.formData();
@@ -19,65 +23,85 @@ export async function loader({ params }) {
   return contact
 }
 
+
 export default function Contact() {
   const contact = useLoaderData();
-  // console.log(contact)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const cancelRef = useRef()
   return (
-    <div id="contact">
-      <div>
-        <img
+    <Stack
+      width='full'
+    >
+      <Card
+        direction={{ base: 'row', sm: 'column', lg: 'row' }}
+        overflow='auto'
+        variant='outline'
+      >
+        <Image
+          objectFit='cover'
+          maxW={{ base: '100%', sm: '200px' }}
           key={contact.avatar}
           src={contact.avatar_image || null}
         />
-      </div>
 
-      <div>
-        <h1>
-          {contact.first_name || contact.last_name ? (
-            <>
-              {contact.first_name} {contact.last_name}
-            </>
-          ) : (
-            <i>No Name</i>
-          )}{" "}
-          <Favorite contact={contact} />
-        </h1>
+        <Stack>
+          <CardBody>
+            <HStack>
+              <Heading size='md'>  {contact.first_name || contact.last_name ? (
+                <>
+                  {contact.first_name} {contact.last_name}
+                </>
+              ) : (
+                <i>No Name</i>
+              )}{" "}</Heading>
+              <Favorite contact={contact} />
+            </HStack>
+            <Text>
+              {contact.twitter && (
+                <p>
+                  <Link
+                    target="_blank"
+                    href={`https://twitter.com/${contact.twitter_handle}`} rel="noreferrer"
+                  >
+                    {contact.twitter_handle}
+                  </Link>
+                </p>
+              )}
 
-        {contact.twitter && (
-          <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${contact.twitter_handle}`}
+              {contact.note && <p>{contact.note}</p>}
+            </Text>
+            <Text py='2'>
+              Caffè latte is a coffee beverage of Italian origin made with espresso
+              and steamed milk.
+            </Text>
+          </CardBody>
+
+          <CardFooter>
+            <Form action="edit">
+              <Button type="submit" mx={2}>Edit</Button>
+            </Form>
+            <Form
+              method="post"
+              action="destroy"
+              onSubmit={(event) => {
+                if (
+                  !window.confirm(
+                    "Please confirm you want to delete this record."
+                  )
+                ) {
+                  event.preventDefault();
+                }
+              }}
+
             >
-              {contact.twitter_handle}
-            </a>
-          </p>
-        )}
+              <Button color='black' type="submit" onClick={onOpen}>Delete</Button>
+            </Form>
 
-        {contact.note && <p>{contact.note}</p>}
+          </CardFooter>
+        </Stack>
+      </Card>
+    </Stack>
 
-        <div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (
-                !window.confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit">Delete</button>
-          </Form>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -90,7 +114,7 @@ function Favorite({ contact }) {
   }
   return (
     <fetcher.Form method="post">
-      <button
+      <Button
         name="favorite"
         value={favorite ? "false" : "true"}
         aria-label={
@@ -100,7 +124,7 @@ function Favorite({ contact }) {
         }
       >
         {favorite ? "★" : "☆"}
-      </button>
+      </Button>
     </fetcher.Form>
   );
 }
