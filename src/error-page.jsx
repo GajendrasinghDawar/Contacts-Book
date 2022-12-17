@@ -3,13 +3,13 @@ import { useRouteError } from "react-router-dom";
 
 export default function ErrorPage(){
     const error = useRouteError()
-    console.log(error)
+    // console.log(error)
     return (
       <VStack >
-        <Heading>Oops!</Heading>
-        <Text>Sorry, an unexpected error has occurred.</Text>
+        <Heading color={'purple.300'}>Oops!</Heading>
+        <Text color={'red.400'}>Sorry, an unexpected error has occurred.</Text>
         <Text>
-          <i>{error.statusText || error.message}</i>
+          {error.statusText || error.message}
         </Text>
       </VStack>
     )

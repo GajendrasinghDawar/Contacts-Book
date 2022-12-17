@@ -1,24 +1,17 @@
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from "react-router-dom";
-
+import { createBrowserRouter, } from "react-router-dom";
+import { Box, Heading } from "@chakra-ui/react";
 
 import Root, { loader as rootLoader, action as rootAction } from "./components/root";
-import ErrorPage from "./error-page";
-import Contact, {
-    loader as contactLoader,
-    action as contactAction,
-} from "./routes/contact";
-import EditContact, {
-    action as editAction,
-} from "./routes/edit";
-import {
-    action as createAction,
-} from "./routes/create";
-import NewContact from "./routes/create";
+import Contact, { loader as contactLoader, action as contactAction, } from "./routes/contact";
+
+import EditContact, { action as editAction, } from "./routes/edit";
+import { action as createAction, } from "./routes/create";
 import { action as destroyAction } from "./routes/destroy";
+
 import Index from "./routes/index";
+import ErrorPage from "./error-page";
+import NewContact from "./routes/create";
+
 
 
 const router = createBrowserRouter([
@@ -54,7 +47,7 @@ const router = createBrowserRouter([
                     {
                         path: "contacts/:contactId/destroy",
                         action: destroyAction,
-                        errorElement: <div>Oops! There was an error.</div>
+                        errorElement: <Box><Heading>Oops! There was an error.</Heading></Box>
                     },
                 ],
             }

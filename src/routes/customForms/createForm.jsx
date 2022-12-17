@@ -1,9 +1,9 @@
 import React from 'react'
+import { Form, useNavigate } from "react-router-dom";
+
+import { Input, FormLabel, Textarea } from '@chakra-ui/react'
 import { Button, chakra, HStack, VStack } from '@chakra-ui/react'
-import { Form } from "react-router-dom";
-import { Input, IconButton, FormLabel, Textarea } from '@chakra-ui/react'
-import { BiSearch } from "react-icons/bi";
-import { useNavigate, } from "react-router-dom";
+
 
 const CustomForm = chakra(Form)
 
@@ -12,7 +12,6 @@ export default function CreateFrom() {
     return (
         <VStack >
             <CustomForm method="post" id="contact-form" encType="multipart/form-data" >
-
                 <HStack>
                     <FormLabel>Name</FormLabel>
                     <Input
@@ -32,9 +31,9 @@ export default function CreateFrom() {
                         focusBorderColor='purple.400'
                     />
                 </HStack>
+
                 <HStack>
                     <FormLabel>Twitter</FormLabel>
-
                     <Input
                         focusBorderColor='purple.400'
                         _placeholder={{ opacity: 1, color: 'purple.400' }}
@@ -44,9 +43,9 @@ export default function CreateFrom() {
                     />
 
                 </HStack>
+
                 <HStack>
                     <FormLabel>Avatar URL</FormLabel>
-
                     <Input
                         placeholder="https://example.com/avatar.jpg"
                         _placeholder={{ opacity: 1, color: 'purple.400' }}
@@ -66,6 +65,7 @@ export default function CreateFrom() {
                         name="avatar_image"
                     />
                 </HStack>
+
                 <HStack>
                     <FormLabel>Notes</FormLabel>
                     <Textarea
@@ -74,13 +74,17 @@ export default function CreateFrom() {
                         rows={3}
                     />
                 </HStack>
+
                 <HStack>
                     <Button type="submit">Save</Button>
-                    <Button type="button"
+                    <Button
+                        type="button"
+                        colorScheme='green'
                         onClick={() => {
                             navigate(-1);
                         }}>Cancel</Button>
                 </HStack>
+
             </CustomForm>
 
         </VStack>

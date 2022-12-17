@@ -1,9 +1,7 @@
 import { Form, useLoaderData, useFetcher, } from "react-router-dom";
-import { getContact, updateFavorite } from "../contacts";
-import { Card, Image, Stack, CardBody, Heading, Text, Button, CardFooter, Link, HStack, useDisclosure } from "@chakra-ui/react";
-import { useRef } from "react";
+import { Card, Image, Stack, CardBody, Heading, Text, Button, CardFooter, Link, HStack, } from "@chakra-ui/react";
 
-import DeleteAlert from "./deleteAlert";
+import { getContact, updateFavorite } from "../contacts";
 
 export async function action({ request, params }) {
   let formData = await request.formData();
@@ -11,7 +9,6 @@ export async function action({ request, params }) {
     favorite: formData.get("favorite") === "true",
   });
 }
-
 export async function loader({ params }) {
   let contact =getContact(params.contactId);
   if (!contact) {
@@ -26,8 +23,7 @@ export async function loader({ params }) {
 
 export default function Contact() {
   const contact = useLoaderData();
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = useRef()
+
   return (
     <Stack
       width='full'
@@ -36,15 +32,17 @@ export default function Contact() {
         direction={{ base: 'row', sm: 'column', lg: 'row' }}
         overflow='auto'
         variant='outline'
+        borderColor={'purple.400'}
       >
         <Image
+          mx={2}
           objectFit='cover'
           maxW={{ base: '100%', sm: '200px' }}
           key={contact.avatar}
           src={contact.avatar_image || null}
         />
-
         <Stack>
+
           <CardBody>
             <HStack>
               <Heading size='md'>  {contact.first_name || contact.last_name ? (
@@ -56,24 +54,20 @@ export default function Contact() {
               )}{" "}</Heading>
               <Favorite contact={contact} />
             </HStack>
-            <Text>
-              {contact.twitter && (
-                <p>
+
+            {contact.twitter_handle && (
                   <Link
                     target="_blank"
-                    href={`https://twitter.com/${contact.twitter_handle}`} rel="noreferrer"
+                href={`https://twitter.com/${contact.twitter_handle}`} rel="noreferrer"
+                isExternal
+                color='teal.500'
                   >
-                    {contact.twitter_handle}
-                  </Link>
-                </p>
+                {contact.twitter_handle}
+              </Link>
               )}
 
-              {contact.note && <p>{contact.note}</p>}
-            </Text>
-            <Text py='2'>
-              Caffè latte is a coffee beverage of Italian origin made with espresso
-              and steamed milk.
-            </Text>
+            {contact.note && <Text>{contact.note}</Text>}
+
           </CardBody>
 
           <CardFooter>
@@ -92,11 +86,9 @@ export default function Contact() {
                   event.preventDefault();
                 }
               }}
-
             >
-              <Button color='black' type="submit" onClick={onOpen}>Delete</Button>
+              <Button colorScheme='green' type="submit" >Delete</Button>
             </Form>
-
           </CardFooter>
         </Stack>
       </Card>
@@ -109,12 +101,13 @@ function Favorite({ contact }) {
   const fetcher = useFetcher();
   let favorite = contact.favorite;
 
-  if(fetcher.formData){
+  if (fetcher.formData) {
+    console.log(`in fetcher fave`)
     favorite=fetcher.formData.get('favorite') ==='true'
   }
   return (
     <fetcher.Form method="post">
-      <Button
+      <button
         name="favorite"
         value={favorite ? "false" : "true"}
         aria-label={
@@ -124,7 +117,7 @@ function Favorite({ contact }) {
         }
       >
         {favorite ? "★" : "☆"}
-      </Button>
+      </button>
     </fetcher.Form>
   );
 }

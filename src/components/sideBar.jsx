@@ -1,7 +1,5 @@
 import React from 'react'
-import { BsFillHeartFill } from "react-icons/bs";
-import { Flex, Heading, HStack, VStack, ListItem, List, ListIcon, Link, Text, Box, Button, Spacer } from '@chakra-ui/react';
-
+import { Heading, HStack, VStack, ListItem, List, Link, Text, Button, Spacer } from '@chakra-ui/react';
 import { NavLink, useLoaderData, useNavigation, useNavigate, useSubmit, } from "react-router-dom";
 
 import SearchFrom from './customForms/searchFrom';
@@ -15,11 +13,12 @@ export default function SideBar() {
 
     React.useEffect(() => {
         document.getElementById('q').value = search
-
     }, [search])
+
     function handleCreateContact() {
         navigate('/contacts/create')
     }
+
     const searching =
         navigation.location &&
         new URLSearchParams(navigation.location.search).has(
@@ -40,18 +39,13 @@ export default function SideBar() {
             justifyContent={'space-between'}
             gap={2}
             w={'full'}
-
         >
-
-
-            <VStack
-                w={'full'}
-            >
-                <HStack
-
-                >
+            <VStack w={'full'}>
+                <HStack>
                     <SearchFrom searching={searching} search={search} onSearch={onSearch} />
-                    <Button type="submit" onClick={handleCreateContact}
+                    <Button
+                        type="submit"
+                        onClick={handleCreateContact}
                         colorScheme='green'
                     >New</Button>
                 </HStack>
@@ -65,8 +59,6 @@ export default function SideBar() {
                         <List spacing={3}>
                             {contacts.map((contact) => (
                                 <ListItem key={contact.id}>
-                                    {/* <ListIcon as={BsFillHeartFill} color='pink.500' /> */}
-
                                     <Link
                                         as={NavLink}
                                         to={`contacts/${contact.id}`}
@@ -102,7 +94,9 @@ export default function SideBar() {
                 <Heading
                     fontSize={[10, 25]}
                     color='green.500'
-                > Contact Book</Heading></HStack>
+                > Contact Book
+                </Heading>
+            </HStack>
         </VStack>
 
     )

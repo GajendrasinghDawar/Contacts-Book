@@ -1,4 +1,4 @@
-import { VStack, Text, Heading, Spacer, Link } from "@chakra-ui/react";
+import { VStack, Text, Spacer, Link } from "@chakra-ui/react";
 export default function Index() {
     return (
       <VStack
@@ -11,13 +11,13 @@ export default function Index() {
         </Text>
 
         <Spacer />
+
         <Text>Check  Gajendrasingh Dawar's website  at {" "}
           <Link href="https://gajendrasinghdawar.tk/" color={'red.400'}>
             gajendrasinghdawar.tk
           </Link>
           .
         </Text>
-
       </VStack>
     );
   }

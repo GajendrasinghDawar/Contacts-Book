@@ -1,8 +1,5 @@
-// import { useEffect } from "react";
-// import { Outlet, NavLink, useLoaderData, useNavigation, useNavigate, useSubmit, Form } from "react-router-dom";
-import {
-  HStack, Flex, Text, IconButton
-} from '@chakra-ui/react'
+import { HStack, Flex, } from '@chakra-ui/react'
+
 import { getContacts, createContact } from "../contacts";
 
 // layout
@@ -23,33 +20,7 @@ export async function action(request) {
 
 export default function Root() {
 
-  // const { contacts, search } = useLoaderData()
-  // const navigate = useNavigate()
-  // const navigation = useNavigation();
-  // const submit = useSubmit()
-
-
-  // function handleCreateContact() {
-  //   navigate('/contacts/create')
-  // }
-
-  // useEffect(() => {
-  //   document.getElementById('q').value = search
-
-  // }, [search])
-
-  // const searching =
-  //   navigation.location &&
-  //   new URLSearchParams(navigation.location.search).has(
-  //     "search"
-  //   );
-
-
-
   return (
-    <>
-
-
       <HStack
         w="full"
         h="100vh"
@@ -83,7 +54,6 @@ export default function Root() {
         >
           <Main />
         </Flex>
-      </HStack>
-    </>
+    </HStack>
   );
 }
