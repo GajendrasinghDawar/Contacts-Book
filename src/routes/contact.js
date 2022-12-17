@@ -10,7 +10,7 @@ export async function action({ request, params }) {
   });
 }
 export async function loader({ params }) {
-  let contact =getContact(params.contactId);
+  let contact = getContact(params.contactId);
   if (!contact) {
     throw new Response("", {
       status: 404,

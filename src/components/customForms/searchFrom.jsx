@@ -10,7 +10,7 @@ export default function SearchFrom({ searching, search, onSearch }) {
         <CustomForm id="search-form" role="search">
                 <InputGroup >
                     <InputLeftElement
-                    pinterEvents='none'
+                    pointerEvents='none'
                         children={<IconButton
                             fontSize='20px'
                             variant='ghost'
